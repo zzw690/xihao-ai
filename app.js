@@ -25,7 +25,7 @@ function sendMessage(){
   chat.appendChild(typing);
   chat.scrollTop=chat.scrollHeight;
 
-  fetch("https://yellow-water-c727.2592795053.workers.dev/", {
+  fetch("https://yellow-water-c727.2592795053.workers.dev", {
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({prompt:text})
