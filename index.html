@@ -2,94 +2,41 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>玺小浩AI助手</title>
-<style>
-  body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
-  #chat-container { max-width: 600px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 8px; height: 500px; overflow-y: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .message { margin: 10px 0; display: flex; }
-  .message.user { justify-content: flex-end; }
-  .message.ai { justify-content: flex-start; }
-  .bubble { padding: 10px 15px; border-radius: 20px; max-width: 70%; }
-  .user .bubble { background: #007bff; color: #fff; }
-  .ai .bubble { background: #e0e0e0; color: #000; }
-  #userInput { width: 80%; padding: 10px; margin: 10px; border-radius: 20px; border: 1px solid #ccc; }
-  #sendBtn { padding: 10px 20px; border-radius: 20px; border: none; background: #007bff; color: #fff; cursor: pointer; }
-  .typing span { display: inline-block; width: 8px; height: 8px; margin: 0 2px; background: #999; border-radius: 50%; animation: blink 1.4s infinite; }
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%, 80%, 100% { opacity: 0; } 40% { opacity: 1; } }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玺小浩 AI法律助手</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="chat-container">
-  <div class="welcome">欢迎使用玺小浩AI法律助手，请输入您的问题</div>
+<div class="app">
+  <header>
+    <div class="logo">
+      <div class="logo-circle">玺</div>
+      <div>
+        <h2>玺小浩</h2>
+        <p>AI法律助手</p>
+      </div>
+    </div>
+  </header>
+
+  <main id="chat-container">
+    <div class="welcome">欢迎使用玺小浩AI法律助手，请输入您的问题</div>
+  </main>
+
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="请输入法律问题..." />
+    <button id="sendBtn">发送</button>
+  </div>
+
+  <div class="lead-box">
+    <h3>预约律师进一步分析</h3>
+    <input id="name" placeholder="您的姓名" />
+    <input id="phone" placeholder="联系电话" />
+    <textarea id="case" placeholder="简单描述案件情况"></textarea>
+    <button id="submitLead">提交预约</button>
+  </div>
 </div>
 
-<div style="text-align:center;">
-  <input type="text" id="userInput" placeholder="请输入您的法律问题..." />
-  <button id="sendBtn">发送</button>
-</div>
-
-<script>
-const sendBtn = document.getElementById("sendBtn");
-const input = document.getElementById("userInput");
-const chat = document.getElementById("chat-container");
-
-sendBtn.addEventListener("click", sendMessage);
-input.addEventListener("keydown", function(e){
-  if(e.key==="Enter" && !e.shiftKey){
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-function sendMessage(){
-  const text = input.value.trim();
-  if(!text) return;
-
-  document.querySelector(".welcome")?.remove();
-
-  // 用户消息
-  const userDiv = document.createElement("div");
-  userDiv.className = "message user";
-  userDiv.innerHTML = `<div class="bubble">${text}</div>`;
-  chat.appendChild(userDiv);
-  input.value="";
-  chat.scrollTop=chat.scrollHeight;
-
-  // AI 打字动画
-  const typing = document.createElement("div");
-  typing.className = "message ai";
-  typing.innerHTML=`<div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
-  chat.appendChild(typing);
-  chat.scrollTop=chat.scrollHeight;
-
-  // 调用 Cloudflare Worker API
-  fetch("https://yellow-water-c727.2592795053.workers.dev", {
-    method:"POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({prompt:text})
-  })
-  .then(res=>res.json())
-  .then(data=>{
-    typing.remove();
-    const ai = document.createElement("div");
-    ai.className="message ai";
-    ai.innerHTML=`<div class="bubble">${data.answer}</div>`;
-    chat.appendChild(ai);
-    chat.scrollTop=chat.scrollHeight;
-  })
-  .catch(err=>{
-    typing.remove();
-    const ai = document.createElement("div");
-    ai.className="message ai";
-    ai.innerHTML=`<div class="bubble">抱歉，AI接口调用失败，请稍后重试。</div>`;
-    chat.appendChild(ai);
-    chat.scrollTop=chat.scrollHeight;
-  });
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
