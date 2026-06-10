@@ -32,11 +32,11 @@ function sendMessage(){
   chat.scrollTop=chat.scrollHeight;
 
   // 调用 Cloudflare Worker API
-  fetch("https://你的-worker子域.workers.dev", {
-    method:"POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({prompt:text})
-  })
+  fetch("https://yellow-water-c727.2592795053.workers.dev", {
+  method:"POST",
+  headers: {"Content-Type":"application/json"},
+  body: JSON.stringify({prompt:text})
+})
   .then(res=>res.json())
   .then(data=>{
     typing.remove();
