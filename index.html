@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>玺小浩AI法律助手</title>
+<title>玺小浩 AI法律助手</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,54 +15,55 @@
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<div class="brand">
+<header>
 
 <div class="logo">
 
-玺小浩
+<div class="logo-circle">
+玺
+</div>
+
+<div>
+<h2>玺小浩</h2>
+<p>AI法律助手</p>
+</div>
 
 </div>
 
-<div class="sub">
+</header>
 
-AI法律助手
+<main id="chat-container">
 
-</div>
+<div class="welcome">
 
-</div>
-
-<h1>
-
-有什么法律问题想咨询？
-
-</h1>
+<h1>您好，我是玺小浩</h1>
 
 <p>
-
-上海玺浩律师事务所出品
-
+由上海玺浩律师事务所打造的AI法律助手
 </p>
 
+</div>
+
+</main>
+
+<div class="input-area">
+
 <textarea
-placeholder="请输入您的法律问题，例如：公司拖欠工资怎么办？">
-</textarea>
+id="userInput"
+placeholder="请输入您的法律问题..."
+></textarea>
 
-<button>
-
-开始分析
-
+<button id="sendBtn">
+发送
 </button>
 
-<div class="notice">
-
-本系统仅提供法律问题初步分析，
-不构成正式法律意见。
-
 </div>
 
 </div>
+
+<script src="app.js"></script>
 
 </body>
 
